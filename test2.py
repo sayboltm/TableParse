@@ -1,3 +1,6 @@
+# thiis is first example, second will go in 'test3.py'
+#https://stackoverflow.com/questions/20418807/python-parse-html-table-using-lxml
+
 doc = """<TABLE>
 <TR>
 ..     <TD><P>Name</P></TD>
