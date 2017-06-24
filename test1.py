@@ -7,7 +7,8 @@ s = """<table>
 </table>
 """
 #table = etree.HTML(s).find("body/table")
-table = etree.parse('junematch.html')
+#table = etree.parse('junematch.html')
+table = etree.parse('table.html') # This should work but doesnt. fix first
 rows = iter(table)
 headers = [col.text for col in next(rows)]
 for row in rows:
