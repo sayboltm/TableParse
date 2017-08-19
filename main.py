@@ -62,3 +62,54 @@ htmlfile = 'junematch.html'
 with open(htmlfile, 'r') as infile:
     p.feed(infile.read())
 q = p.rowlist # This is the table in pythonic form!
+
+name = input('Enter shooter name:\n')
+
+##############################################################################
+######## parse lists, analyze match statistics
+# Remove empty last element in table
+del q[-1]
+# Remove first element of list because we don't need it 
+del q[0]
+
+''' 
+46 ppl
+14 in enh
+'''
+
+# Counters for each division
+Service = 0
+Enhanced = 0
+Open = 0
+i = 0 # Overall counter
+shooter_found = 0
+for rows in q:
+    i += 1 # increment here vs end is simplest way to achieve right count
+    if rows[1] == 'Service':
+        Service += 1
+    elif rows[1] == 'Enhanced':
+        Enhanced += 1
+    elif rows[1] == 'Open':
+        Open += 1
+    else:
+        print('[-] WARNING: unknown division detected! Submit an issue on Github please!')
+
+    if rows[0] == name:
+#        print(name + ' came in ' + str(i) + ' place overall!') # For debug
+        place = i
+        division = rows[1]
+        # Use string as a variable that already exists
+        div_place = globals()[rows[1]] 
+        shooter_found = 1
+
+if shooter_found == 0:
+    sys.exit('Failure: Shooter \'' + name + '\' not found! Exiting')
+
+print('Match statistics:')
+print('Shooter name: ' + name)
+print('Place Overall: ' + str(place) + '/' + str(i))
+print('Place Division(' + division + '): ' + str(div_place) + '/' + str(globals()[division]))
+
+''' Resources:
+https://stackoverflow.com/questions/19122345/to-convert-string-to-variable-name
+'''
